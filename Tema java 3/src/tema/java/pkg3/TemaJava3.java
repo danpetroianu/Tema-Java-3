@@ -6,17 +6,23 @@
 
 package tema.java.pkg3;
 
-/**
- *
- * @author Sony Vaio
- */
+import javax.swing.SwingUtilities;
+
 public class TemaJava3 {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                Points ps = new Points();
+                ps.setVisible(true);
+            }
+        });
     }
     
 }
