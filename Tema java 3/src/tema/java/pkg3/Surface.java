@@ -1,48 +1,71 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package tema.java.pkg3;
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
-import java.util.Random;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class Surface extends JPanel {
 
+    private int _x1;   
+    private int _y1;
+    
+    private int _wc1 = 50;
+
+    private int _wc2 = 50;
+    private Color _color;
+    private int _thickness;
+    
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
-        g2d.setColor(Color.blue);
-
-        Dimension size = getSize();
-        Insets insets = getInsets();
-
-        int w = size.width - insets.left - insets.right;
-        int h = size.height - insets.top - insets.bottom;
-
-        Random r = new Random();
-
-        for (int i = 0; i < 1000; i++) {
-
-            int x = Math.abs(r.nextInt()) % w;
-            int y = Math.abs(r.nextInt()) % h;
-            g2d.drawLine(x, y, x, y);
-        }
+        
+        drawCatetaH(_x1, _y1, _wc1, _thickness, _color, g2d);
+        drawCatetaV(_x1, _y1, _wc2, _thickness, _color, g2d);
+        // ipotenuza
+        g2d.drawLine(_x1, _y1-_wc2, _x1+_wc1, _y1);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         doDrawing(g);
+    }
+    
+    public void setX1(int x1) { _x1 = x1; }
+    
+    public void setWidthC1(int w) { _wc1 = w; }
+    
+    public void setY1(int y1) { _y1 = y1; }
+    
+    public void setWidthC2(int w) { _wc2 = w; }
+    
+    public void setColor(Color color) { _color = color; }
+    
+    public void setThickness(int thickness) { _thickness = thickness; }
+    
+    public double getTan1()
+    {
+        return (_wc1*1.0)/_wc2;
+    }
+    
+    public double getTan2()
+    {
+        return (_wc2*1.0)/_wc1;
+    }
+    
+    private void drawCatetaH(int x1, int y1, int w, int thickness, Color color, Graphics2D gr)
+    {
+        gr.setColor(color);
+        gr.setStroke(new BasicStroke(thickness));
+        gr.drawLine(x1, y1, x1+w, y1);
+    }
+    
+    private void drawCatetaV(int x1, int y1, int w, int thickness, Color color, Graphics2D gr)
+    {
+        gr.setColor(color);
+        gr.setStroke(new BasicStroke(thickness));
+        gr.drawLine(x1, y1, x1, y1-w);
     }
 }
